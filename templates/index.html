@@ -15,7 +15,7 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-    /* Marca de agua del logo INCAA */
+    /* Marca de agua iluminada */
     body::before {
       content: "";
       position: fixed;
@@ -25,7 +25,8 @@
       height: 400px;
       background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Logo_INCAA.svg/512px-Logo_INCAA.svg.png") no-repeat center;
       background-size: contain;
-      opacity: 0.05;
+      opacity: 0.25; /* más visible */
+      filter: brightness(1.2); /* ilumina un poco */
       transform: translate(-50%, -50%);
       z-index: 0;
       pointer-events: none;
@@ -61,7 +62,7 @@
     }
     textarea {
       width: 100%;
-      height: 80px;
+      height: 50px;
       border-radius: 8px;
       padding: 10px;
       border: none;
@@ -103,7 +104,7 @@
 </head>
 <body>
   <header>
-    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712103.png" alt="Chatbot">
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712103.png" alt="Chatbot Robot">
     <h1>Prueba de chatbot de INCAA en Línea</h1>
   </header>
 
@@ -124,7 +125,6 @@
       const pregunta = document.getElementById("pregunta").value;
       if (!pregunta.trim()) return;
 
-      // Limpiar el área de respuesta
       const respuestaDiv = document.getElementById("respuesta");
       respuestaDiv.innerHTML = "<em>Procesando respuesta...</em>";
 

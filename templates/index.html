@@ -15,7 +15,7 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-    /* Marca de agua */
+    /* Marca de agua del logo INCAA */
     body::before {
       content: "";
       position: fixed;
@@ -99,18 +99,11 @@
       position: relative;
       z-index: 1;
     }
-    footer img {
-      width: 60px;
-      position: absolute;
-      right: 20px;
-      top: -25px;
-    }
   </style>
 </head>
 <body>
   <header>
-    <!-- Nueva imagen de robot -->
-    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Chatbot">
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712103.png" alt="Chatbot">
     <h1>Prueba de chatbot de INCAA en Línea</h1>
   </header>
 
@@ -124,8 +117,6 @@
 
   <footer>
     © 2025 INCAA - Chatbot Demo
-    <!-- Nueva imagen de carrete de cine -->
-    <img src="https://cdn-icons-png.flaticon.com/512/3442/3442209.png" alt="Cine">
   </footer>
 
   <script>
@@ -138,8 +129,7 @@
       respuestaDiv.innerHTML = "<em>Procesando respuesta...</em>";
 
       try {
-        // CORREGIDO: endpoint es /preguntar
-        const resp = await fetch("/preguntar", {
+        const resp = await fetch("/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ pregunta })

@@ -2,27 +2,54 @@
   "respuestas": [
     {
       "pregunta": "¿Qué documentación necesito para inscribirme?",
+      "keywords": ["documentación", "inscribirme", "registro"],
       "respuesta": "Generalmente se solicita: formulario de inscripción, DNI o CUIT, guion o tratamiento, presupuesto, equipo técnico y artístico."
     },
     {
       "pregunta": "¿Cómo incorporo un proyecto independiente?",
+      "keywords": ["proyecto independiente", "incorporar proyecto", "proyecto propio"],
       "respuesta": "Debes enviar un correo electrónico a enlinea@incaa.gob.ar con el asunto 'Incorporación de proyecto independiente'."
     },
     {
       "pregunta": "¿Quién debe registrarse en el Registro Público Audiovisual?",
+      "keywords": ["quién registrarse", "registro público audiovisual", "inscribirse"],
       "respuesta": "Toda persona física o jurídica que ejerza alguna actividad audiovisual en Argentina debe inscribirse en el Registro Público de la Actividad Cinematográfica y Audiovisual."
     },
     {
       "pregunta": "¿Cómo me postulo para comités y jurados?",
+      "keywords": ["postulo", "comité", "jurado", "postulación"],
       "respuesta": "Los interesados deben inscribirse a través de la plataforma INCAA en Línea, presentando declaraciones juradas y documentación que acredite su experiencia y trayectoria."
     },
     {
       "pregunta": "¿Qué necesito para exhibir un contenido en festivales o ciclos?",
+      "keywords": ["exhibir", "festivales", "ciclos", "proyección"],
       "respuesta": "Se debe solicitar autorización al INCAA a través de la plataforma de trámites a distancia (TAD), efectuado por los responsables de la organización del evento."
     },
     {
       "pregunta": "¿Qué necesito para inscribirme en el Registro Público Audiovisual?",
+      "keywords": ["registro público audiovisual", "inscribirme", "documentación", "RPA"],
       "respuesta": "Debes completar el formulario de inscripción, presentar DNI o CUIT, constituir un domicilio electrónico y, si corresponde, acompañar la constancia de pago de aranceles."
+    },
+    {
+      "pregunta": "¿Cómo consulto mis trámites?",
+      "keywords": ["consultar", "mis trámites", "estado trámite"],
+      "respuesta": "Puedes consultar el estado de tus trámites ingresando a tu cuenta en la plataforma INCAA en Línea, sección 'Mis trámites'."
+    },
+    {
+      "pregunta": "¿Cómo actualizo mis datos personales?",
+      "keywords": ["actualizar", "datos personales", "información"],
+      "respuesta": "Debes ingresar a tu perfil en INCAA en Línea y actualizar tus datos desde la sección 'Mi cuenta'."
+    },
+    {
+      "pregunta": "¿Dónde encuentro formularios y plantillas?",
+      "keywords": ["formularios", "plantillas", "documentos"],
+      "respuesta": "Todos los formularios y plantillas están disponibles en la sección 'Documentación' de la plataforma INCAA en Línea."
+    },
+    {
+      "pregunta": "¿A quién contacto para consultas generales?",
+      "keywords": ["contacto", "consulta", "información general"],
+      "respuesta": "Para consultas generales, podes enviar un correo a enlinea@incaa.gob.ar."
     }
   ]
 }
+

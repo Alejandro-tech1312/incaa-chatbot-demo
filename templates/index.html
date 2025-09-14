@@ -1,89 +1,152 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Prueba de chatbot de INCAA en Línea</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #1f2a44, #3a4a6b);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-        h1 {
-            color: #ffcc00;
-            text-shadow: 1px 1px 4px #000;
-        }
-        #chat-container {
-            background-color: rgba(0,0,0,0.5);
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 600px;
-            min-height: 120px;
-            margin-bottom: 15px;
-        }
-        input {
-            width: 70%;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            margin-right: 10px;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #ffcc00;
-            color: #000;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        button:hover {
-            background-color: #e6b800;
-        }
-        p {
-            margin: 5px 0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Prueba de chatbot de INCAA en Línea</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #1a1a1a, #333);
+      color: #f0f0f0;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    /* Marca de agua */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 400px;
+      height: 400px;
+      background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Logo_INCAA.svg/512px-Logo_INCAA.svg.png") no-repeat center;
+      background-size: contain;
+      opacity: 0.05; /* transparencia */
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    header {
+      padding: 20px;
+      background-color: #222;
+      box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
+      position: relative;
+      z-index: 1;
+    }
+    header img {
+      width: 60px;
+      vertical-align: middle;
+      margin-right: 15px;
+    }
+    header h1 {
+      display: inline-block;
+      font-size: 26px;
+      color: #00bcd4;
+      vertical-align: middle;
+    }
+    .chat-container {
+      margin: 40px auto;
+      padding: 20px;
+      background: rgba(68, 68, 68, 0.9);
+      border-radius: 12px;
+      width: 80%;
+      max-width: 600px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+      position: relative;
+      z-index: 1;
+    }
+    textarea {
+      width: 100%;
+      height: 80px;
+      border-radius: 8px;
+      padding: 10px;
+      border: none;
+      resize: none;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #00bcd4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #0097a7;
+    }
+    #respuesta {
+      margin-top: 20px;
+      padding: 15px;
+      background: #555;
+      border-radius: 10px;
+      text-align: left;
+      font-size: 15px;
+      min-height: 40px;
+    }
+    footer {
+      margin-top: 40px;
+      padding: 15px;
+      background-color: #222;
+      color: #aaa;
+      font-size: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    footer img {
+      width: 60px;
+      position: absolute;
+      right: 20px;
+      top: -25px;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712103.png" alt="Chatbot">
     <h1>Prueba de chatbot de INCAA en Línea</h1>
-    <div id="chat-container">Escriba su pregunta y presione Enviar</div>
-    <input id="user-input" type="text" placeholder="Escriba su pregunta">
+  </header>
+
+  <div class="chat-container">
+    <label for="pregunta"><strong>Escriba su pregunta</strong></label><br>
+    <textarea id="pregunta" placeholder="Ingrese su consulta aquí..."></textarea><br>
     <button onclick="enviarPregunta()">Enviar</button>
 
-    <script>
-        function enviarPregunta() {
-            const mensaje = document.getElementById('user-input').value.trim();
-            if (!mensaje) return;
+    <div id="respuesta"></div>
+  </div>
 
-            fetch('/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ mensaje })
-            })
-            .then(response => response.json())
-            .then(data => {
-                const container = document.getElementById('chat-container');
-                container.innerHTML = ''; // 🔹 Limpiar chat previo
-                container.innerHTML = `<p><strong>Tú:</strong> ${mensaje}</p>
-                                       <p><strong>Chatbot:</strong> ${data.respuesta}</p>`;
-            })
-            .catch(err => {
-                const container = document.getElementById('chat-container');
-                container.innerHTML = `<p style="color:red;">Error: no se pudo conectar con el chatbot.</p>`;
-            });
+  <footer>
+    © 2025 INCAA - Chatbot Demo
+    <img src="https://cdn-icons-png.flaticon.com/512/3342/3342137.png" alt="Cine">
+  </footer>
 
-            document.getElementById('user-input').value = ''; // limpiar input
-        }
-    </script>
+  <script>
+    async function enviarPregunta() {
+      const pregunta = document.getElementById("pregunta").value;
+      if (!pregunta.trim()) return;
+
+      // Limpiar el área de respuesta
+      const respuestaDiv = document.getElementById("respuesta");
+      respuestaDiv.innerHTML = "<em>Procesando respuesta...</em>";
+
+      try {
+        const resp = await fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pregunta })
+        });
+        const data = await resp.json();
+        respuestaDiv.innerHTML = "<strong>Respuesta:</strong> " + data.respuesta;
+      } catch (e) {
+        respuestaDiv.innerHTML = "<span style='color:red;'>Error: no se pudo conectar con el chatbot.</span>";
+      }
+    }
+  </script>
 </body>
 </html>

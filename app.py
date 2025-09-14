@@ -42,9 +42,10 @@ def index():
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    # Cambiado para leer 'pregunta' desde el frontend
+    # Obtenemos la pregunta del JSON enviado desde el front
     mensaje = request.json.get("pregunta", "").lower()
 
+    # Buscamos coincidencias en las palabras clave
     for item in palabras_clave:
         if any(keyword.lower() in mensaje for keyword in item["keywords"]):
             return jsonify({"respuesta": item["respuesta"]})

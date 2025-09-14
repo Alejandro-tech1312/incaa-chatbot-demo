@@ -2,25 +2,203 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Chatbot INCAA</title>
+    <title>Prueba de chatbot de INCAA en Línea</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            color: #ffdd57;
+            text-shadow: 2px 2px 4px #000;
+            margin-bottom: 10px;
+        }
+
+        .icono-cine {
+            width: 60px;
+        }
+
+        .chat-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        #chat-box {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            max-height: 400px;
+        }
+
+        .mensaje {
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 20px;
+            max-width: 80%;
+            word-wrap: break-word;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .usuario {
+            background-color: #ffdd57;
+            color: #1e3c72;
+            align-self: flex-end;
+        }
+
+        .bot {
+            background-color: rgba(255, 255, 255, 0.3);
+            align-self: flex-start;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .typing {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 5px 0;
+            font-style: italic;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes blink {
+            0%, 80%, 100% { opacity: 0; }
+            40% { opacity: 1; }
+        }
+
+        form {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border-radius: 20px 0 0 20px;
+            border: none;
+            font-size: 1em;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #ffdd57;
+            color: #1e3c72;
+            border: none;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #ffc107;
+        }
+    </style>
 </head>
 <body>
-    <h2>Chatbot INCAA</h2>
-    <input type="text" id="mensaje" placeholder="Escriba su pregunta">
-    <button onclick="enviarMensaje()">Enviar</button>
-    <div id="respuesta"></div>
+    <header>
+        <h1>Prueba de chatbot de INCAA en Línea</h1>
+        <img class="icono-cine" src="https://cdn-icons-png.flaticon.com/512/69/69524.png" alt="Icono Cine">
+    </header>
+
+    <div class="chat-container">
+        <div id="chat-box"></div>
+        <form id="chat-form">
+            <input type="text" id="mensaje" name="mensaje" required placeholder="Escribe tu pregunta...">
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
 
     <script>
-        async function enviarMensaje() {
-            const mensaje = document.getElementById('mensaje').value;
-            const res = await fetch('/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ mensaje })
-            });
-            const data = await res.json();
-            document.getElementById('respuesta').innerText = data.respuesta;
-        }
+        const form = document.getElementById('chat-form');
+        const chatBox = document.getElementById('chat-box');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const mensajeUsuario = document.getElementById('mensaje').value;
+
+            // Mostrar mensaje del usuario
+            const divUsuario = document.createElement('div');
+            divUsuario.className = 'mensaje usuario';
+            divUsuario.textContent = mensajeUsuario;
+            chatBox.appendChild(divUsuario);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Mostrar animación "bot escribiendo"
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing';
+            typingDiv.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+            chatBox.appendChild(typingDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            try {
+                const res = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ mensaje: mensajeUsuario })
+                });
+                const data = await res.json();
+
+                // Eliminar animación
+                chatBox.removeChild(typingDiv);
+
+                // Mostrar respuesta del bot
+                const divBot = document.createElement('div');
+                divBot.className = 'mensaje bot';
+                divBot.textContent = data.respuesta;
+                chatBox.appendChild(divBot);
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+            } catch (error) {
+                chatBox.removeChild(typingDiv);
+
+                const divBot = document.createElement('div');
+                divBot.className = 'mensaje bot';
+                divBot.textContent = "Error: no se pudo conectar con el chatbot.";
+                chatBox.appendChild(divBot);
+            }
+
+            document.getElementById('mensaje').value = '';
+        });
     </script>
 </body>
 </html>

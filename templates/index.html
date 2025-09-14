@@ -70,4 +70,86 @@
       font-size: 14px;
     }
     button {
-     
+      padding: 10px 20px;
+      background-color: #00bcd4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #0097a7;
+    }
+    #respuesta {
+      margin-top: 20px;
+      padding: 15px;
+      background: #555;
+      border-radius: 10px;
+      text-align: left;
+      font-size: 15px;
+      min-height: 40px;
+    }
+    footer {
+      margin-top: 40px;
+      padding: 15px;
+      background-color: #222;
+      color: #aaa;
+      font-size: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    footer img {
+      width: 60px;
+      position: absolute;
+      right: 20px;
+      top: -25px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- Nueva imagen de robot -->
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Chatbot">
+    <h1>Prueba de chatbot de INCAA en Línea</h1>
+  </header>
+
+  <div class="chat-container">
+    <label for="pregunta"><strong>Escriba su pregunta</strong></label><br>
+    <textarea id="pregunta" placeholder="Ingrese su consulta aquí..."></textarea><br>
+    <button onclick="enviarPregunta()">Enviar</button>
+
+    <div id="respuesta"></div>
+  </div>
+
+  <footer>
+    © 2025 INCAA - Chatbot Demo
+    <!-- Nueva imagen de carrete de cine -->
+    <img src="https://cdn-icons-png.flaticon.com/512/3442/3442209.png" alt="Cine">
+  </footer>
+
+  <script>
+    async function enviarPregunta() {
+      const pregunta = document.getElementById("pregunta").value;
+      if (!pregunta.trim()) return;
+
+      // Limpiar el área de respuesta
+      const respuestaDiv = document.getElementById("respuesta");
+      respuestaDiv.innerHTML = "<em>Procesando respuesta...</em>";
+
+      try {
+        // CORREGIDO: endpoint es /preguntar
+        const resp = await fetch("/preguntar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pregunta })
+        });
+        const data = await resp.json();
+        respuestaDiv.innerHTML = "<strong>Respuesta:</strong> " + data.respuesta;
+      } catch (e) {
+        respuestaDiv.innerHTML = "<span style='color:red;'>Error: no se pudo conectar con el chatbot.</span>";
+      }
+    }
+  </script>
+</body>
+</html>

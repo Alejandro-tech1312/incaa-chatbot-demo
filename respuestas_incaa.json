@@ -1,0 +1,28 @@
+{
+  "respuestas": [
+    {
+      "pregunta": "¿Qué documentación necesito para inscribirme?",
+      "respuesta": "Generalmente se solicita: formulario de inscripción, DNI o CUIT, guion o tratamiento, presupuesto, equipo técnico y artístico."
+    },
+    {
+      "pregunta": "¿Cómo incorporo un proyecto independiente?",
+      "respuesta": "Debes enviar un correo electrónico a enlinea@incaa.gob.ar con el asunto 'Incorporación de proyecto independiente'."
+    },
+    {
+      "pregunta": "¿Quién debe registrarse en el Registro Público Audiovisual?",
+      "respuesta": "Toda persona física o jurídica que ejerza alguna actividad audiovisual en Argentina debe inscribirse en el Registro Público de la Actividad Cinematográfica y Audiovisual."
+    },
+    {
+      "pregunta": "¿Cómo me postulo para comités y jurados?",
+      "respuesta": "Los interesados deben inscribirse a través de la plataforma INCAA en Línea, presentando declaraciones juradas y documentación que acredite su experiencia y trayectoria."
+    },
+    {
+      "pregunta": "¿Qué necesito para exhibir un contenido en festivales o ciclos?",
+      "respuesta": "Se debe solicitar autorización al INCAA a través de la plataforma de trámites a distancia (TAD), efectuado por los responsables de la organización del evento."
+    },
+    {
+      "pregunta": "¿Qué necesito para inscribirme en el Registro Público Audiovisual?",
+      "respuesta": "Debes completar el formulario de inscripción, presentar DNI o CUIT, constituir un domicilio electrónico y, si corresponde, acompañar la constancia de pago de aranceles."
+    }
+  ]
+}

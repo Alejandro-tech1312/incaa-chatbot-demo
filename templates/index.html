@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Prueba de chatbot de INCAA en Línea</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Hace la página responsive -->
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -15,7 +16,8 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-    /* Marca de agua más visible */
+
+    /* Marca de agua */
     body::before {
       content: "";
       position: fixed;
@@ -30,6 +32,7 @@
       z-index: 0;
       pointer-events: none;
     }
+
     header {
       padding: 20px;
       background-color: #222;
@@ -37,40 +40,47 @@
       position: relative;
       z-index: 1;
     }
+
+    /* Imagen del robot */
     header img {
-      width: 60px;
-      vertical-align: middle;
-      margin-right: 15px;
+      width: 120px;
+      max-width: 50vw; /* no demasiado grande en pantallas pequeñas */
+      height: auto;
+      display: block;
+      margin: 0 auto 10px auto;
     }
+
     header h1 {
-      display: inline-block;
       font-size: 26px;
       color: #00bcd4;
-      vertical-align: middle;
+      margin: 0;
     }
+
     .chat-container {
       margin: 40px auto;
       padding: 20px;
       background: rgba(68, 68, 68, 0.9);
       border-radius: 12px;
-      width: 80%;
+      width: 90%;       /* ocupa casi toda la pantalla en móviles */
       max-width: 600px;
       box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
       position: relative;
       z-index: 1;
     }
+
     textarea {
       width: 100%;
-      height: 50px;
+      height: 60px; /* un poco más grande para móvil */
       border-radius: 8px;
       padding: 8px;
       border: none;
       resize: none;
       margin-bottom: 15px;
-      font-size: 14px;
+      font-size: 16px; /* más legible en móvil */
     }
+
     button {
-      padding: 10px 20px;
+      padding: 12px 24px;
       background-color: #00bcd4;
       color: white;
       border: none;
@@ -78,19 +88,23 @@
       cursor: pointer;
       font-weight: bold;
       margin-right: 10px;
+      font-size: 16px;
     }
+
     button:hover {
       background-color: #0097a7;
     }
+
     #respuesta {
       margin-top: 20px;
       padding: 15px;
       background: #555;
       border-radius: 10px;
       text-align: left;
-      font-size: 15px;
-      min-height: 40px;
+      font-size: 16px;
+      min-height: 50px;
     }
+
     footer {
       margin-top: 40px;
       padding: 15px;
@@ -100,12 +114,36 @@
       position: relative;
       z-index: 1;
     }
+
+    /* Media query para móviles pequeños */
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 20px;
+      }
+      .chat-container {
+        width: 95%;
+        margin: 20px auto;
+      }
+      header img {
+        width: 80px;
+      }
+      textarea {
+        height: 50px;
+        font-size: 14px;
+      }
+      button {
+        font-size: 14px;
+        padding: 10px 18px;
+      }
+    }
+
   </style>
 </head>
 <body>
   <header>
-    <!-- Imagen del robot en base64 -->
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABXUlEQVRYR+2Xz0oDQRSGv1UnC1CkFipTgg3E2WsyAFbT9CIE3Q0ZJ4C8BBFJU6gSx5AvkAl6CWNgcSAgmEAYpXv+X4srp8uzM7szO7M7uYhAlJ5HmfB6+vAHiJwB7gQYQpwBW+Ao8pVfTtrWoi7CV3E5rpXQeLV6vR3/8FJ+lOXeyIZ2JdxN32zUegp52FMAQ5AOSGdM0/iUpJk9+3XALX+gGbkBFiCJTDANXgDRsl9+TzoGTFspO9icwdREhE4DoTGcK1Vdc0kUAhUELOl0Uvl8J1mXw4wAC+AHmNKsmc6aQv3WnwZyYAJv2bLwFIf5MQI6AzgcRn7kklqTClU2D3YnW+nJtXSB0gkxS8TL2NvPfG1xVHJljZzC0jY6X5gFLmKjo3KJr2Jl62kbkbM8Jecq3A+5Svxt4TWX/2jF9rX3+gq1h6X+pwBRxQCuVWyvvgAAAABJRU5ErkJggg==" alt="Chatbot">
+    <!-- Imagen del robot en Base64 -->
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABXUlEQVRYR+2Xz0oDQRSGv1UnC1CkFipTgg3E2WsyAFbT9CIE3Q0ZJ4C8BBFJU6gSx5AvkAl6CWNgcSAgmEAYpXv+X4srp8uzM7szO7M7uYhAlJ5HmfB6+vAHiJwB7gQYQpwBW+Ao8pVfTtrWoi7CV3E5rpXQeLV6vR3/8FJ+lOXeyIZ2JdxN32zUegp52FMAQ5AOSGdM0/iUpJk9+3XALX+gGbkBFiCJTDANXgDRsl9+TzoGTFspO9icwdREhE4DoTGcK1Vdc0kUAhUELOl0Uvl8J1mXw4wAC+AHmNKsmc6aQv3WnwZyYAJv2bLwFIf5MQI6AzgcRn7kklqTClU2D3YnW+nJtXSB0gkxS8TL2NvPfG1xVHJljZzC0jY6X5gFLmKjo3KJr2Jl62kbkbM8Jecq3A+5Svxt4TWX/2jF9rX3+gq1h6X+pwBRxQCuVWyvvgAAAABJRU5ErkJggg==" 
+         alt="Chatbot">
     <h1>Prueba de chatbot de INCAA en Línea (demo)</h1>
   </header>
 
